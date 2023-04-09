@@ -1,0 +1,85 @@
+### Register
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Ahmad Syaifudin",
+  "phone": "085123456789",
+  "email": "sysfdn@gmail.com",
+  "password": "halo1234"
+}
+
+### Register with invalid data
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Ahmad Syaifudin",
+  "phone": "085123456789",
+  "email": "sysfdn"
+}
+
+### Register with random data
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "{{$random.alphabetic(20)}}",
+  "phone": "{{$random.integer(100)}}{{$random.integer(100, 999)}}{{$random.integer(100, 999)}}{{$random.integer(10, 99)}}{{$random.integer(10, 99)}}",
+  "email": "{{$random.email}}",
+  "password": "{{$random.alphanumeric(10)}}"
+}
+
+### Login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "sysfdn@gmail.com",
+  "password": "halo1234"
+}
+
+> {%
+    client.global.set("refresh_token", "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoic3lzZmRuQGdtYWlsLmNvbSIsImV4cCI6MTY3OTQ3MjE2OSwibmJmIjoxNjcxNjk2MTY5LCJpYXQiOjE2NzE2OTYxNjl9.QTKw-Z6yBIGiflM3DBvigDrXsVSziJM8jykqo1vEncLhbghzqP-SPMscAyBZI6ZGDAequQ7H86UOEl3VANguziy1TCg__Y-4CGjMb5Zyj7zHRdt6vY72tKr9CRdNH-8kisw5wEbfdlAiIlnEqPto8Frl3rqYlrhrUIJe4WOhtxOH9aH2YXvtLeHfmcXgzNbru6wLE_g52Z-SmOJoB__L4_END1JDuU_vYnIVHlK0-faWF6eDlz1jiKJOBt7b__r_Nvcve6VdpCoIT2aH_fm5Suc5F-ElWNKOkFLMWp6Cg7xHki671yvmqrwFRTRrz0GloncBPwSv1Km36VO96gz8WA");
+    client.global.set("access_token", "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoic3lzZmRuQGdtYWlsLmNvbSIsImV4cCI6MTY3MTc4MjU2OSwibmJmIjoxNjcxNjk2MTY5LCJpYXQiOjE2NzE2OTYxNjl9.gQNyKuen64VQkcQ9rOaIOaEYialiJ8aM1RNBZHQuUjsOD8NQakjFWt_2qV4lblhTYVXf4JvIc-HCUu-JuDsF0X8lGIY3HowjexiQtW76Km_HU8E0DmppFXpIMiDg0uthOzlDzI064VAWUSqraoI9wx4nVI6bJqnKHlKnadjjt-WiDfkxoqmZafmMJrijZWaJKHnTsKFGi6jW1XZVSy7uN_f-xD3GnNS2EBTz-ogt3Ui5KbTPYs0NGzluN3suV4DstiNqXDul1Xj9QMgh-2_U4c-V9oSEer40J0UEtdv0jm4F6NG9eXK7ydSF_6gUfZIJpRlDzcMHIgFye34eN31K1A");
+
+%}
+
+### Auth - Refresh
+GET http://localhost:3000/api/auth/refresh
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoic3lzZmRuQGdtYWlsLmNvbSIsImV4cCI6MTY3OTQ3MjE2OSwibmJmIjoxNjcxNjk2MTY5LCJpYXQiOjE2NzE2OTYxNjl9.QTKw-Z6yBIGiflM3DBvigDrXsVSziJM8jykqo1vEncLhbghzqP-SPMscAyBZI6ZGDAequQ7H86UOEl3VANguziy1TCg__Y-4CGjMb5Zyj7zHRdt6vY72tKr9CRdNH-8kisw5wEbfdlAiIlnEqPto8Frl3rqYlrhrUIJe4WOhtxOH9aH2YXvtLeHfmcXgzNbru6wLE_g52Z-SmOJoB__L4_END1JDuU_vYnIVHlK0-faWF6eDlz1jiKJOBt7b__r_Nvcve6VdpCoIT2aH_fm5Suc5F-ElWNKOkFLMWp6Cg7xHki671yvmqrwFRTRrz0GloncBPwSv1Km36VO96gz8WA
+
+### Users - FindAll
+GET http://localhost:3000/api/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoic3lzZmRuQGdtYWlsLmNvbSIsImV4cCI6MTY3OTQ3MjE2OSwibmJmIjoxNjcxNjk2MTY5LCJpYXQiOjE2NzE2OTYxNjl9.QTKw-Z6yBIGiflM3DBvigDrXsVSziJM8jykqo1vEncLhbghzqP-SPMscAyBZI6ZGDAequQ7H86UOEl3VANguziy1TCg__Y-4CGjMb5Zyj7zHRdt6vY72tKr9CRdNH-8kisw5wEbfdlAiIlnEqPto8Frl3rqYlrhrUIJe4WOhtxOH9aH2YXvtLeHfmcXgzNbru6wLE_g52Z-SmOJoB__L4_END1JDuU_vYnIVHlK0-faWF6eDlz1jiKJOBt7b__r_Nvcve6VdpCoIT2aH_fm5Suc5F-ElWNKOkFLMWp6Cg7xHki671yvmqrwFRTRrz0GloncBPwSv1Km36VO96gz8WA
+
+### Users - FindAll with pagenation
+GET http://localhost:3000/api/users?page=5&?size=10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoic3lzZmRuQGdtYWlsLmNvbSIsImV4cCI6MTY3OTQ3MjE2OSwibmJmIjoxNjcxNjk2MTY5LCJpYXQiOjE2NzE2OTYxNjl9.QTKw-Z6yBIGiflM3DBvigDrXsVSziJM8jykqo1vEncLhbghzqP-SPMscAyBZI6ZGDAequQ7H86UOEl3VANguziy1TCg__Y-4CGjMb5Zyj7zHRdt6vY72tKr9CRdNH-8kisw5wEbfdlAiIlnEqPto8Frl3rqYlrhrUIJe4WOhtxOH9aH2YXvtLeHfmcXgzNbru6wLE_g52Z-SmOJoB__L4_END1JDuU_vYnIVHlK0-faWF6eDlz1jiKJOBt7b__r_Nvcve6VdpCoIT2aH_fm5Suc5F-ElWNKOkFLMWp6Cg7xHki671yvmqrwFRTRrz0GloncBPwSv1Km36VO96gz8WA
+
+
+### Users - FindById
+GET http://localhost:3000/api/users/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoic3lzZmRuQGdtYWlsLmNvbSIsImV4cCI6MTY3OTQ3MjE2OSwibmJmIjoxNjcxNjk2MTY5LCJpYXQiOjE2NzE2OTYxNjl9.QTKw-Z6yBIGiflM3DBvigDrXsVSziJM8jykqo1vEncLhbghzqP-SPMscAyBZI6ZGDAequQ7H86UOEl3VANguziy1TCg__Y-4CGjMb5Zyj7zHRdt6vY72tKr9CRdNH-8kisw5wEbfdlAiIlnEqPto8Frl3rqYlrhrUIJe4WOhtxOH9aH2YXvtLeHfmcXgzNbru6wLE_g52Z-SmOJoB__L4_END1JDuU_vYnIVHlK0-faWF6eDlz1jiKJOBt7b__r_Nvcve6VdpCoIT2aH_fm5Suc5F-ElWNKOkFLMWp6Cg7xHki671yvmqrwFRTRrz0GloncBPwSv1Km36VO96gz8WA
+
+### Users - Update
+PUT http://localhost:3000/api/users/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoic3lzZmRuQGdtYWlsLmNvbSIsImV4cCI6MTY3OTQ3MjE2OSwibmJmIjoxNjcxNjk2MTY5LCJpYXQiOjE2NzE2OTYxNjl9.QTKw-Z6yBIGiflM3DBvigDrXsVSziJM8jykqo1vEncLhbghzqP-SPMscAyBZI6ZGDAequQ7H86UOEl3VANguziy1TCg__Y-4CGjMb5Zyj7zHRdt6vY72tKr9CRdNH-8kisw5wEbfdlAiIlnEqPto8Frl3rqYlrhrUIJe4WOhtxOH9aH2YXvtLeHfmcXgzNbru6wLE_g52Z-SmOJoB__L4_END1JDuU_vYnIVHlK0-faWF6eDlz1jiKJOBt7b__r_Nvcve6VdpCoIT2aH_fm5Suc5F-ElWNKOkFLMWp6Cg7xHki671yvmqrwFRTRrz0GloncBPwSv1Km36VO96gz8WA
+
+{
+  "name": "Ahmad",
+  "phone": "085123456789",
+  "email": "ahmad@example.com",
+  "password": "rahasia1234"
+}
+
+
+### Users - Delete
+DELETE http://localhost:3000/api/users/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoic3lzZmRuQGdtYWlsLmNvbSIsImV4cCI6MTY3OTQ3MjE2OSwibmJmIjoxNjcxNjk2MTY5LCJpYXQiOjE2NzE2OTYxNjl9.QTKw-Z6yBIGiflM3DBvigDrXsVSziJM8jykqo1vEncLhbghzqP-SPMscAyBZI6ZGDAequQ7H86UOEl3VANguziy1TCg__Y-4CGjMb5Zyj7zHRdt6vY72tKr9CRdNH-8kisw5wEbfdlAiIlnEqPto8Frl3rqYlrhrUIJe4WOhtxOH9aH2YXvtLeHfmcXgzNbru6wLE_g52Z-SmOJoB__L4_END1JDuU_vYnIVHlK0-faWF6eDlz1jiKJOBt7b__r_Nvcve6VdpCoIT2aH_fm5Suc5F-ElWNKOkFLMWp6Cg7xHki671yvmqrwFRTRrz0GloncBPwSv1Km36VO96gz8WA
