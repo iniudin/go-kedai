@@ -3,15 +3,15 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
-	"katalog/internal/app"
-	"katalog/internal/database"
-	"katalog/internal/pkg/validation"
+	"gokedai/internal/app"
+	"gokedai/internal/database"
+	"gokedai/internal/pkg/validation"
 	"log"
 )
 
-// @title 			Katabe API
+// @title 			Kedai API
 // @version 		1.0
-// @description 	API documentation for Katabe
+// @description 	API documentation for Kedai API
 // @termsOfService 	http://swagger.io/terms/
 // @contact.name 	API Support
 // @contact.email 	fiber@swagger.io

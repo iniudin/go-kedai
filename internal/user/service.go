@@ -1,7 +1,8 @@
-package users
+package user
 
 import (
 	"context"
+	"database/sql"
 	"gorm.io/gorm"
 	"katalog/internal/database"
 	"katalog/internal/models"
@@ -43,6 +44,6 @@ func (service *ServiceImpl) Delete(ctx context.Context, id uint) error {
 	return service.db.WithContext(ctx).Delete(&user, id).Error
 }
 
-func NewServiceImpl(db *gorm.DB) *ServiceImpl {
+func NewServiceImpl(db *sql.Conn) *ServiceImpl {
 	return &ServiceImpl{db: db}
 }

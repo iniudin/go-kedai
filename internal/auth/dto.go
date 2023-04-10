@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"katalog/internal/pkg/jwt"
+	"gokedai/internal/pkg/jwt"
 	"time"
 )
 

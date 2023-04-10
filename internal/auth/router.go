@@ -1,13 +1,13 @@
 package auth
 
 import (
+	"database/sql"
 	"github.com/gofiber/fiber/v2"
-	"gorm.io/gorm"
-	"katalog/internal/pkg/middleware"
-	"katalog/internal/pkg/validation"
+	"gokedai/internal/pkg/middleware"
+	"gokedai/internal/pkg/validation"
 )
 
-func NewAuthRouter(router fiber.Router, db *gorm.DB, validator *validation.CustomValidator) {
+func NewAuthRouter(router fiber.Router, db *sql.DB, validator *validation.CustomValidator) {
 	service := NewAuthServiceImpl(db)
 	controller := NewAuthControllerImpl(validator, service)
 	auth := router.Group("/auth")

@@ -1,6 +1,7 @@
 package app
 
 import (
+	"database/sql"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -9,11 +10,10 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/swagger"
 	"github.com/spf13/viper"
-	"gorm.io/gorm"
-	_ "katalog/docs"
-	"katalog/internal/auth"
-	"katalog/internal/pkg/validation"
-	"katalog/internal/users"
+	_ "gokedai/docs"
+	"gokedai/internal/auth"
+	"gokedai/internal/pkg/validation"
+	"gokedai/internal/user"
 	"log"
 	"os"
 	"os/signal"
@@ -28,7 +28,7 @@ type Server interface {
 
 type ServerImpl struct {
 	app       *fiber.App
-	db        *gorm.DB
+	db        *sql.DB
 	validator *validation.CustomValidator
 }
 
@@ -43,7 +43,7 @@ func (server *ServerImpl) InitializeRouter() {
 	server.app.Get("/metrics", monitor.New(monitor.Config{Title: "Katabe Metrics Page"}))
 	api := server.app.Group("/api")
 	auth.NewAuthRouter(api, server.db, server.validator)
-	users.NewUserRouter(api, server.db, server.validator)
+	user.NewUserRouter(api, server.db, server.validator)
 }
 
 func (server *ServerImpl) Start() {
@@ -67,7 +67,7 @@ func (server *ServerImpl) Start() {
 	fmt.Println("Fiber was successful shutdown.")
 }
 
-func NewServerImpl(app *fiber.App, db *gorm.DB, validator *validation.CustomValidator) *ServerImpl {
+func NewServerImpl(app *fiber.App, db *sql.DB, validator *validation.CustomValidator) *ServerImpl {
 	return &ServerImpl{
 		app:       app,
 		db:        db,

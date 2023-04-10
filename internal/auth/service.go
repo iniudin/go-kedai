@@ -2,10 +2,12 @@ package auth
 
 import (
 	"context"
+	"database/sql"
+	"gokedai/internal/user"
 	"gorm.io/gorm"
 
-	"katalog/internal/pkg/jwt"
-	"katalog/internal/pkg/password"
+	"gokedai/internal/pkg/jwt"
+	"gokedai/internal/pkg/password"
 )
 
 type ServiceImpl struct {
@@ -13,7 +15,7 @@ type ServiceImpl struct {
 }
 
 func (service *ServiceImpl) Login(ctx context.Context, request *LoginRequest) (*LoginResponse, error) {
-	var user models.User
+	var user user.User
 	tx := service.db.WithContext(ctx).Where("email = ?", request.Email).First(&user)
 	if tx.Error != nil {
 		return nil, tx.Error
@@ -39,7 +41,7 @@ func (service *ServiceImpl) Login(ctx context.Context, request *LoginRequest) (*
 }
 
 func (service *ServiceImpl) Register(ctx context.Context, request RegisterRequest) (*RegisterResponse, error) {
-	user := models.User{
+	user := user.User{
 		Name:     request.Name,
 		Phone:    request.Phone,
 		Email:    request.Email,
@@ -60,7 +62,7 @@ func (service *ServiceImpl) Register(ctx context.Context, request RegisterReques
 }
 
 func (service *ServiceImpl) Refresh(ctx context.Context, request AccessTokenRequest) (*AccessTokenResponse, error) {
-	var user models.User
+	var user user.User
 	tx := service.db.WithContext(ctx).Where("email = ?", request.Email).First(&user)
 	if tx.Error != nil {
 		return nil, tx.Error
@@ -75,6 +77,6 @@ func (service *ServiceImpl) Refresh(ctx context.Context, request AccessTokenRequ
 	}, nil
 }
 
-func NewAuthServiceImpl(db *gorm.DB) *ServiceImpl {
+func NewAuthServiceImpl(db *sql.DB) *ServiceImpl {
 	return &ServiceImpl{db: db}
 }

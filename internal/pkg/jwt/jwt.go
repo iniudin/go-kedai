@@ -2,7 +2,7 @@ package jwt
 
 import (
 	"github.com/golang-jwt/jwt/v4"
-	"katalog/internal/models"
+	"gokedai/internal/user"
 	"os"
 	"time"
 )
@@ -18,7 +18,7 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-func GenerateToken(user *models.User, days int) (*Token, error) {
+func GenerateToken(user *user.User, days int) (*Token, error) {
 	readFile, err := os.ReadFile("cert/private.pem")
 	if err != nil {
 		return nil, err

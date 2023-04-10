@@ -3,8 +3,8 @@ package auth
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
-	"katalog/internal/pkg/response"
-	"katalog/internal/pkg/validation"
+	"gokedai/internal/pkg/response"
+	"gokedai/internal/pkg/validation"
 	"net/http"
 )
 
